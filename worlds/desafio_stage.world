@@ -1,0 +1,58 @@
+# desafio_stage.world
+# Escenario propio para el Desafio Stage ROS2 - PRIA, Proyecto de Robots II
+# Robot: pioneer2dx con laser (evasion) y detector fiducial (checkpoint)
+
+include "include/robots.inc"
+
+resolution 0.02
+interval_sim 100
+
+window
+(
+  size [ 700.000 700.000 ]
+  scale 35.0
+  center [ 0 0 ]
+  rotate [ 0 0 ]
+  show_data 1
+)
+
+define wall model
+(
+  color "gray50"
+  obstacle_return 1
+  laser_return 1
+  ranger_return 1
+  fiducial_return 0
+  gui_nose 0
+)
+
+# perimetro del arena (~12 x 12 m)
+wall( size [12.2 0.2 0.6] pose [0   6.0 0 0] )
+wall( size [12.2 0.2 0.6] pose [0  -6.0 0 0] )
+wall( size [0.2 12.2 0.6] pose [ 6.0 0 0 0] )
+wall( size [0.2 12.2 0.6] pose [-6.0 0 0 0] )
+
+# divisoria interior, deja un paso abierto del lado derecho
+wall( size [6.0 0.2 0.6] pose [-3.0 0 0 0] )
+
+# obstaculo suelto
+wall( size [1.0 1.0 0.6] pose [3.0 -2.0 0 0] color "SteelBlue" )
+
+# baliza / checkpoint (marcador fiducial ID 2)
+define beacon model
+(
+  size [0.3 0.3 0.6]
+  color "yellow"
+  fiducial_return 2
+  obstacle_return 1
+)
+
+beacon( pose [ 0.0 1.0 0 0 ] )
+
+# robot
+pioneer2dx_with_laser_and_fiducial
+(
+  name "robot_0"
+  color "red"
+  pose [ -5 -5 0 45 ]
+)

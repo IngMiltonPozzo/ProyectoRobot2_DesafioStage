@@ -1,0 +1,13 @@
+repositories:
+  stage:
+    type: git
+    url: https://github.com/tuw-robotics/Stage.git
+    version: jazzy
+  stage_ros2:
+    type: git
+    url: https://github.com/tuw-robotics/stage_ros2.git
+    version: jazzy
+  marker_msgs:
+    type: git
+    url: https://github.com/tuw-robotics/marker_msgs.git
+    version: ros2
